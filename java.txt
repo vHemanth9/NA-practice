@@ -1,0 +1,143 @@
+db.posts.updateone({
+{title:"Post Title1},{$set:{likes:2}}
+)
+
+
+IF we want to check whether our document is updated or not we need to write a query 
+
+db.posts.find({tilte:"Posts Title 1"})
+
+MongoDB update opertors
+
+The following operators can be used to update the fields.
+
+$inc:Increments the field value
+$rename:Renames the fields
+$set:sets the value of a field
+$unset:Removes the field from the document.
+
+
+The following operators assist with updating arrays.
+$addToSet:Adds distinct elements to an array
+$pop:removes the first or last element of an array.
+$pull:removes all elements from an array that match the query.
+$push:Adds an element to an array.
+
+
+
+
+db.books.updateMany({bookcategory:"Action and Adventure},{$set:{bookcopies:2800},$inc:{BookPrice:3000}})
+db.books.find()
+
+db.employees.updateMany({deptNo:""},{$set:{deptNo:"null"}})
+db.employess.find().pretty()
+
+
+db.books.updateMany({BookPublisher:"Justin Paul"},{$inc:{BookPrice:200},$set:{BookCopies:10000,BookLanguage.4:"Tamil"}})
+db.books.find({BookAuthor:"Justi Paul}).pretty()
+
+
+db.books.updateMany({},{$unset:{"BookPrice":"","BookCopies":""}})
+db.books.find().pretty().
+
+
+db.employees.deleteOne({Sex:"M",Salary:{$gt:60000}})
+db.employees.find().pretty();
+
+
+db.employees.deleteOne({Sex:"M",Salary:{$gt:60000}})
+db.employees.find().pretty();
+
+
+db.employees.drop()
+
+
+db.employees.find({$gte:{HireYear:1988}},{$lte:{HireYear:2005}}).count()
+
+db.employees.find({Sex:"F"},{salary:{$gt:80000,$lte:15000}}).pretty()
+
+
+db.employees.aggregate([
+{
+$match:{job:"Analyst"}
+},
+{
+$project:{firstname:1,salary:1,commision:1}
+}
+])
+
+db.employees.aggrregate([
+{
+$sort:{"Empno":1}
+},{$skip:10},
+
+{
+
+}
+]).pretty()
+
+
+
+db.employees.aggregate([
+{
+
+},
+{
+$project:{"id":0,"Empno":1,"firstname":1}
+},
+{
+$sort:{"Empno":0}
+},{$limit:4}
+])
+
+
+db.employees.aggregate([
+{
+$group:{"id":"DeptNo","totalsalary":{$sum:"$Salary}}
+},
+{
+$sort:{"totalsalary":-1}
+}
+])
+
+
+db.employees.aggregate([
+{
+$match:{$or:[{job:"Clerk"},{job:"SalesRep"}]}
+},
+{
+$group:{"id":"$DeptNo","salary_total":{$sum:"$Salary"}}
+},
+{
+$sort:{"salary_total":1}
+}
+])
+
+
+db.books.aggregate([
+{
+$project:{"BookTitle":1,"month":1,"year":1}
+},
+{
+$sort:{"year":-1}
+}
+])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
